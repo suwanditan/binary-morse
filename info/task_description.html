@@ -1,0 +1,52 @@
+<style>
+    .story {
+        font-size: 1.1em;
+        font-style: italic;
+    }
+    
+    .ref-source {
+        font-size: .7em;
+        position: relative;
+        left: -20%;
+    }
+</style>
+<p class="story">
+    "di-dah di-di-di-dit di-dah-dah di-dah-dah-dah dah-di-dit dah-di-di-dah", sound of Morszelizer clank.<br><br>
+    "What're you doing?", Stephen asked curiously<br><br>
+    "I do send our time sequence during our last expedition to headquarters, but Doh.., it is not an easy task for me", Peter grumbled, "Could you imagine, I have to convert this with these on and off button.., Huff.. what a day for me", still murmured how he not convenient with the situation.<br><br>
+    
+    "Let me look at it", Stephen offered a help, "It looks easy. and, we could automate this process", explained Stephen.<br><br>
+    
+    "Oh.. you hero of my day", Peter started exciting, "so, how we start it?"<br><br>
+</p
+
+<p style="text-align: left;">
+    <img class="for_info_only" title="example" src="info/media/morse_clock.svg" alt="example" width="500px"/>
+    <span class="ref-source">source: Wikipedia</span>
+    
+    <img class="for_editor_only" title="example" src="info/media/example.png" alt="example" width="100%"/>
+    <img class="for_editor_only" title="example" src="info/media/example.png" alt="example" width="380px"/>
+</p>
+
+<p>Help Peter to automate his task with creating module. As you could see on illustration, gray circle means on, and white circle means off. Every digit in time is converted to binary representation. Then, for ease of this task, you will converted every on ( or 1 ) signal to underscore ( _ ) and every off ( or 0 ) signal to dot ( . )
+</p>
+
+<p>
+    <strong>Input: </strong> A time string
+</p>
+
+<p>
+    <strong>Output: </strong> A string of Morse symbol from binary representation with specific format
+</p>
+
+<div class="for_info_only">
+    <p>
+        <strong>Example:</strong>
+    </p>
+    <pre class="brush: python">assert checkio( "10:37:49" ) == "._ .... : .__ .___ : _.. _.._", "First Test"
+assert checkio( "21:34:56" ) == "_. ..._ : .__ ._.. : _._ .__.", "Second Test"
+assert checkio( "00:01:02" ) == ".. .... : ... ..._ : ... .._.", "Third Test"
+assert checkio( "23:59:59" ) == "_. ..__ : _._ _.._ : _._ _.._", "Fourth Test"
+  
+</pre>
+</div>
