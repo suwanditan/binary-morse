@@ -10,6 +10,7 @@
         left: -20%;
     }
 </style>
+<<<<<<< HEAD
 <p class="story">
     "di-dah di-di-di-dit di-dah-dah di-dah-dah-dah dah-di-dit dah-di-di-dah", sound of Morszelizer clank.<br><br>
     "What're you doing?", Nikola asked curiously<br><br>
@@ -29,6 +30,19 @@
 </p>
 
 <p>Help Stephen to automate his task with creating module. As you could see on illustration, gray circle means on, and white circle means off. Every digit in time is converted to binary representation. Then, for ease of this task, you will converted every on ( or 1 ) signal to underscore ( _ ) and every off ( or 0 ) signal to dot ( . )
+=======
+
+<p style="text-align: center;">
+    <img class="for_info_only" title="example" src="{{ MEDIA_URL }}/{{ TASK_SLUG }}/morse_clock.png" alt="example" width="500px"/>
+    <span class="ref-source">source: Wikipedia</span>
+</p>
+
+<p>Help Peter to automate his task with creating module. As you could see on
+    illustration, gray circle means on, and white circle means off. Every digit
+    in time is converted to binary representation. Then, for ease of this task,
+    you will converted every on ( or 1 ) signal to underscore ( _ ) and every
+    off ( or 0 ) signal to dot ( . )
+>>>>>>> de2ebf1c096cf95baa275424bbd508267f2e287d
 </p>
 
 <p>
@@ -44,9 +58,9 @@
         <strong>Example:</strong>
     </p>
     <pre class="brush: python">assert checkio( "10:37:49" ) == "._ .... : .__ .___ : _.. _.._", "First Test"
-assert checkio( "21:34:56" ) == "_. ..._ : .__ ._.. : _._ .__.", "Second Test"
-assert checkio( "00:01:02" ) == ".. .... : ... ..._ : ... .._.", "Third Test"
-assert checkio( "23:59:59" ) == "_. ..__ : _._ _.._ : _._ _.._", "Fourth Test"
+assert checkio( "21:34:56" ) == "-. ...- : .-- .-.. : -.- .--.", "Second Test"
+assert checkio( "00:01:02" ) == ".. .... : ... ..._ : ... ..-.", "Third Test"
+assert checkio( "23:59:59" ) == "-. ..-- : -.- -..- : -.- -..-", "Fourth Test"
   
 </pre>
 </div>
