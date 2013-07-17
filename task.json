@@ -1,8 +1,8 @@
 {
     "global": {
         
-        "task_name": "Binary Morse",
-        "task_slug": "binary_morse"
+        "task_name": "Morse Clock",
+        "task_slug": "morse_clock"
     },
     "editor": {
         "expand_animation_results": true,
