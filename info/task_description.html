@@ -25,15 +25,14 @@
     <img class="for_info_only" title="example" src="info/media/morse_clock.svg" alt="example" width="500px"/>
     <span class="ref-source"><a href="http://en.wikipedia.org/wiki/Binary_clock">source: Wikipedia</a></span>
     
-    <img class="for_editor_only" title="example" src="info/media/example.png" alt="example" width="100%"/>
-    <img class="for_editor_only" title="example" src="info/media/example.png" alt="example" width="380px"/>
+    <img class="for_editor_only" title="example" src="info/media/morse_clock.svg" alt="example" width="200px"/>    
 </p>
 
 <p>Help Stephen to automate his task with creating module. As you could see on illustration, gray circle means on, and white circle means off. every digit in time string, contains different slot. First digit for hour contains 2 length. Second digit for hour contains 4 length. First digit for minute and second, contains 3 length. And second digit for minute and hour, contains 4 length. Every digit in time is converted to binary representation. Then, for ease of this task, you will converted every on ( or 1 ) signal to dash ( - ) and every off ( or 0 ) signal to dot ( . )
 </p>
 
 <p>
-    <strong>Input: </strong> A time string ( could be hh:mm:ss or h:m:s format )
+    <strong>Input: </strong> A time string ( could be hh:mm:ss or h:m:s format depends on digit length )
 </p>
 
 <p>
@@ -44,9 +43,9 @@
     <p>
         <strong>Example:</strong>
     </p>
-    <pre class="brush: python">assert checkio( "10:37:49" ) == "._ .... : .__ .___ : _.. _.._", "First Test"
+    <pre class="brush: python">assert checkio( "10:37:49" ) == ".- .... : .-- .--- : -.. -..-", "First Test"
 assert checkio( "21:34:56" ) == "-. ...- : .-- .-.. : -.- .--.", "Second Test"
-assert checkio( "00:01:02" ) == ".. .... : ... ..._ : ... ..-.", "Third Test"
+assert checkio( "00:01:02" ) == ".. .... : ... ...- : ... ..-.", "Third Test"
 assert checkio( "23:59:59" ) == "-. ..-- : -.- -..- : -.- -..-", "Fourth Test"
   
 </pre>
