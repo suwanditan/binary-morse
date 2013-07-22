@@ -7,25 +7,25 @@ CURRENT_TEST = None
 RAND_TESTS_QUANTITY = None
 FLOAT_PRECISION = None
 
-
 def initial_checkio(data):
     global TESTS
     global RAND_TESTS
     global CURRENT_TEST
     global RAND_TESTS_QUANTITY
     global FLOAT_PRECISION
-    TESTS = data.get("tests", [])
-    RAND_TESTS = data.get("rand_tests", [])
+    TESTS = data.get("tests", data.get("rand_tests", []))
 
     options = data.get("options", {})
-    RAND_TESTS_QUANTITY = options.get("random-select", 0)
+    RAND_TESTS_QUANTITY = options.get("rand_tests_quantity", 0)
+    if RAND_TESTS_QUANTITY <= 0:
+        RAND_TESTS_QUANTITY = -1
     FLOAT_PRECISION = options.get("float_precision", None)
 
-    if TESTS:
+    if RAND_TESTS_QUANTITY == -1 and TESTS:
         CURRENT_TEST = TESTS.pop(0)
     else:
-        if RAND_TESTS_QUANTITY and RAND_TESTS:
-            CURRENT_TEST = random.choice(RAND_TESTS)
+        if RAND_TESTS_QUANTITY and TESTS:
+            CURRENT_TEST = random.choice(TESTS)
             RAND_TESTS_QUANTITY -= 1
         else:
             raise DoneTest(1)
@@ -53,11 +53,11 @@ def checkio(data):
     if not CURRENT_TEST["result"]:
         raise FailTest('ERROR')
 
-    if TESTS:
+    if RAND_TESTS_QUANTITY == -1 and TESTS:
         CURRENT_TEST = TESTS.pop(0)
     else:
-        if RAND_TESTS_QUANTITY and RAND_TESTS:
-            CURRENT_TEST = random.choice(RAND_TESTS)
+        if RAND_TESTS_QUANTITY and TESTS:
+            CURRENT_TEST = random.choice(TESTS)
             RAND_TESTS_QUANTITY -= 1
         else:
             raise DoneTest(1)
