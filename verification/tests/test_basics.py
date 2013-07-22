@@ -5,26 +5,26 @@ TESTS = [
     {
         "input": "10:37:49",
         "answer": ".- .... : .-- .--- : -.. -..-",
-        "explanation": "First Test"
+        "explanation": "103749"
     },
     {
         "input": "21:34:56",
         "answer": "-. ...- : .-- .-.. : -.- .--.",
-        "explanation": "Second Test"
+        "explanation": "213456"
     },
     {
         "input": "00:01:02",
         "answer": ".. .... : ... ...- : ... ..-.",
-        "explanation": "Third Test"
+        "explanation": "000102"
     },
     {
         "input": "23:59:59",
         "answer": "-. ..-- : -.- -..- : -.- -..-",
-        "explanation": "Fourth Test"
+        "explanation": "235959"
     },
     {
         "input": "0:10:2",
         "answer": ".. .... : ..- .... : ... ..-.",
-        "explanation": "Fifth Test, hidden rule"
+        "explanation": "001002"
     }
 ]
