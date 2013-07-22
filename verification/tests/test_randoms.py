@@ -1,56 +1,56 @@
 OPTIONS = {
-    "random-select": 5
+    "rand_tests_quantity": 5
 }
 
 TESTS = [
     {
         "input": "17:0:28",
         "answer": ".- .--- : ... .... : .-. -...",
-        "explanation": "Random 1"
+        "explanation": "170028"
     },
     {
         "input": "7:41:37",
         "answer": ".. .--- : -.. ...- : .-- .---",
-        "explanation": "Random 2"
+        "explanation": "074137"
     },
     {
         "input": "4:25:13",
         "answer": ".. .-.. : .-. .-.- : ..- ..--",
-        "explanation": "Random 3"
+        "explanation": "042513"
     },
     {
         "input": "15:18:8",
         "answer": ".- .-.- : ..- -... : ... -...",
-        "explanation": "Random 4"
+        "explanation": "151808"
     },
     {
         "input": "2:32:41",
         "answer": ".. ..-. : .-- ..-. : -.. ...-",
-        "explanation": "Random 5"
+        "explanation": "023241"
     },
     {
         "input": "9:44:31",
         "answer": ".. -..- : -.. .-.. : .-- ...-",
-        "explanation": "Random 6"
+        "explanation": "094431"
     },
     {
         "input": "3:8:2",
         "answer": ".. ..-- : ... -... : ... ..-.",
-        "explanation": "Random 7"
+        "explanation": "030802"
     },
     {
         "input": "5:1:9",
         "answer": ".. .-.- : ... ...- : ... -..-",
-        "explanation": "Random 8"
+        "explanation": "050109"
     },
     {
         "input": "09:02:08",
         "answer": ".. -..- : ... ..-. : ... -...",
-        "explanation": "Random 9"
+        "explanation": "090208"
     },
     {
         "input": "13:5:3",
         "answer": ".- ..-- : ... .-.- : ... ..--",
-        "explanation": "Random 10"
+        "explanation": "130503"
     }
 ]
