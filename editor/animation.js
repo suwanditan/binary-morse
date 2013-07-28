@@ -113,7 +113,6 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 checkInput($mm, 0, 59);
                 checkInput($ss, 0, 59);
                 var data = [$hh.val(), $mm.val(), $ss.val()].join(":");
-                console.log(data);
                 //send it for check
                 this_e.sendToConsoleCheckiO(data);
                 //After it will be called set_console_process_ret

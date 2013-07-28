@@ -67,6 +67,7 @@
     color: #294270;
     font-family: Verdana;
     font-size: 14px;
+    padding: 3px;
 }
 
 /*it for firefox*/
@@ -79,6 +80,7 @@
     text-align: center;
     color: #294270;
     width: 160px;
+    padding: 3px;
 }
 
 .tryit-content .btn {
@@ -114,15 +116,28 @@
 }
 
 .tryit-content input[type=number] {
-    width: 70px;
-    border: 1px solid #C5C6C6;
+    text-align: center;
     font-family: Verdana;
     font-size: 16px;
     color: #294270;
-    text-align: center;
-
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 
-.tryit-content input[type=number]:active {
-    border: 1px solid #737370;
+.tryit_results input[type=number]:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    /* IE6-9 */
+
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
