@@ -93,19 +93,27 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
         ext.set_generate_animation_panel(function (this_e) {
             $tryit = $(this_e.setHtmlTryIt(ext.get_template('tryit'))).find(".tryit-content");
-            //Your code here about tryit animation
-            //
-            //
-            //
-            //
-            //
-            //
+
+            function checkInput(field, min, max){
+                var value = parseInt(field.val());
+                if (isNaN(value)) {
+                    field.val(min);
+                }
+                else if (value < min || value > max) {
+                    field.val(min);
+                }
+            }
 
             //run checking
             $tryit.find('.bn-check').click(function (e) {
-                //collect data from your tryit panel
-                var data = 0;
-
+                var $hh = $tryit.find(".input-hh");
+                var $mm = $tryit.find(".input-mm");
+                var $ss = $tryit.find(".input-ss");
+                checkInput($hh, 0, 23);
+                checkInput($mm, 0, 59);
+                checkInput($ss, 0, 59);
+                var data = [$hh.val(), $mm.val(), $ss.val()].join(":");
+                console.log(data);
                 //send it for check
                 this_e.sendToConsoleCheckiO(data);
                 //After it will be called set_console_process_ret

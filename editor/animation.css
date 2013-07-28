@@ -64,6 +64,9 @@
 .tryit-content .tool td{
     text-align: center;
     vertical-align: top;
+    color: #294270;
+    font-family: Verdana;
+    font-size: 14px;
 }
 
 /*it for firefox*/
@@ -79,9 +82,47 @@
 }
 
 .tryit-content .btn {
+    width: 100px;
+    font-family: Verdana;
+    font-size: 16px;
+    color: #294270;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #006CA9;
+    background-color: #8FC7ED;
+    /*text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);*/
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.tryit-content .btn:hover {
+    background: #65A1CF;
+    border: solid 1px #294270;
+    text-decoration: none;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.tryit-content .btn:active {
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    background: #006CA9;
+}
+
+.tryit-content input[type=number] {
+    width: 70px;
+    border: 1px solid #C5C6C6;
+    font-family: Verdana;
+    font-size: 16px;
+    color: #294270;
+    text-align: center;
 
 }
 
-
-/* Your CSS */
-/*          */
+.tryit-content input[type=number]:active {
+    border: 1px solid #737370;
+}
