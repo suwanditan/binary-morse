@@ -1,65 +1,20 @@
-import random
+from checkio.signals import ON_CONNECT
+from checkio import api
+from checkio.referees.io import CheckiOReferee
+from checkio.referees import cover_codes
 
-TESTS = None
-RAND_TESTS = None
-CURRENT_TEST = None
-#options
-RAND_TESTS_QUANTITY = None
-FLOAT_PRECISION = None
+from tests import TESTS
 
-def initial_checkio(data):
-    global TESTS
-    global RAND_TESTS
-    global CURRENT_TEST
-    global RAND_TESTS_QUANTITY
-    global FLOAT_PRECISION
-    TESTS = data.get("tests", data.get("rand_tests", []))
-
-    options = data.get("options", {})
-    RAND_TESTS_QUANTITY = options.get("rand_tests_quantity", 0)
-    if RAND_TESTS_QUANTITY <= 0:
-        RAND_TESTS_QUANTITY = -1
-    FLOAT_PRECISION = options.get("float_precision", None)
-
-    if RAND_TESTS_QUANTITY == -1 and TESTS:
-        CURRENT_TEST = TESTS.pop(0)
-    else:
-        if RAND_TESTS_QUANTITY and TESTS:
-            CURRENT_TEST = random.choice(TESTS)
-            RAND_TESTS_QUANTITY -= 1
-        else:
-            raise DoneTest(1)
-
-    return CURRENT_TEST["input"]
-
-
-def checkio(data):
-    global TESTS
-    global RAND_TESTS
-    global CURRENT_TEST
-    global RAND_TESTS_QUANTITY
-    global FLOAT_PRECISION
-    CURRENT_TEST["user_answer"] = data
-    answer = CURRENT_TEST["answer"]
-
-    if (FLOAT_PRECISION and
-                        answer - FLOAT_PRECISION <= data <= answer + FLOAT_PRECISION):
-        CURRENT_TEST["result"] = True
-    elif data == CURRENT_TEST["answer"]:
-        CURRENT_TEST["result"] = True
-    else:
-        CURRENT_TEST["result"] = False
-    ext_animation(CURRENT_TEST)
-    if not CURRENT_TEST["result"]:
-        raise FailTest('ERROR')
-
-    if RAND_TESTS_QUANTITY == -1 and TESTS:
-        CURRENT_TEST = TESTS.pop(0)
-    else:
-        if RAND_TESTS_QUANTITY and TESTS:
-            CURRENT_TEST = random.choice(TESTS)
-            RAND_TESTS_QUANTITY -= 1
-        else:
-            raise DoneTest(1)
-
-    return CURRENT_TEST["input"]
+api.add_listener(
+    ON_CONNECT,
+    CheckiOReferee(
+        tests=TESTS,
+        cover_code={
+            'python-27': cover_codes.unwrap_args,  # or None
+            'python-3': cover_codes.unwrap_args
+        },
+        # checker=None,  # checkers.float.comparison(2)
+        # add_allowed_modules=[],
+        # add_close_builtins=[],
+        # remove_allowed_modules=[]
+    ).on_ready)
