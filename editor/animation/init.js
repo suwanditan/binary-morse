@@ -8,7 +8,11 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
         });
 
         ext.set_process_in(function (this_e, data) {
-            cur_slide[data[1]] = data[0];
+            cur_slide["in"] = data[0];
+        });
+
+        ext.set_process_out(function (this_e, data) {
+            cur_slide["out"] = data[0];
         });
 
         ext.set_process_ext(function (this_e, data) {
@@ -25,7 +29,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
         ext.set_animate_success_slide(function (this_e, options) {
             var $h = $(this_e.setHtmlSlide('<div class="animation-success"><div></div></div>'));
-            this_e.setAnimationHeight(112);
+            this_e.setAnimationHeight(115);
         });
 
         ext.set_animate_slide(function (this_e, data, options) {
@@ -35,7 +39,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 return false;
             }
             if (data.error) {
-                $content.find('.call').html('Fail: checkio(' + ext.JSON.encode(data.referee) + ')');
+                $content.find('.call').html('Fail: checkio(' + JSON.stringify(data.in) + ')');
                 $content.find('.output').html(data.error.replace(/\n/g, ","));
 
                 $content.find('.output').addClass('error');
@@ -46,25 +50,27 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 return false;
             }
 
-            var checkioInput = data.ext["input"];
+            var checkioInput = data.in;
             var rightResult = data.ext["answer"];
-            var userResult = data.req;
+            var userResult = data.out;
             var result = data.ext["result"];
+            var result_addon = data.ext["result_addon"];
+
 
             //if you need additional info from tests (if exists)
             var explanation = data.ext["explanation"];
 
-            $content.find('.output').html('&nbsp;Your result:&nbsp;' + ext.JSON.encode(userResult));
+            $content.find('.output').html('&nbsp;Your result:&nbsp;' + JSON.stringify(userResult));
 
             if (!result) {
-                $content.find('.call').html('Fail: checkio(' + ext.JSON.encode(checkioInput) + ')');
-                $content.find('.answer').html('Right result:&nbsp;' + ext.JSON.encode(rightResult));
+                $content.find('.call').html('Fail: checkio(' + JSON.stringify(checkioInput) + ')');
+                $content.find('.answer').html('Right result:&nbsp;' + JSON.stringify(rightResult));
                 $content.find('.answer').addClass('error');
                 $content.find('.output').addClass('error');
                 $content.find('.call').addClass('error');
             }
             else {
-                $content.find('.call').html('Pass: checkio(' + ext.JSON.encode(checkioInput) + ')');
+                $content.find('.call').html('Pass: checkio(' + JSON.stringify(checkioInput) + ')');
                 $content.find('.answer').remove();
             }
             //Dont change the code before it
@@ -77,43 +83,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
         });
 
-        //TRYIT code
-        var $tryit;
-
-
-        //this function process returned data and show it
-        ext.set_console_process_ret(function (this_e, ret) {
-            try {
-                ret = JSON.parse(ret);
-            }
-            catch(err){}
-
-            $tryit.find(".checkio-result-in").html(ext.JSON.encode(ret));
-        });
-
-        ext.set_generate_animation_panel(function (this_e) {
-            $tryit = $(this_e.setHtmlTryIt(ext.get_template('tryit'))).find(".tryit-content");
-            //Your code here about tryit animation
-            //
-            //
-            //
-            //
-            //
-            //
-
-            //run checking
-            $tryit.find('.bn-check').click(function (e) {
-                //collect data from your tryit panel
-                var data = 0;
-
-                //send it for check
-                this_e.sendToConsoleCheckiO(data);
-                //After it will be called set_console_process_ret
-                e.stopPropagation();
-                return false;
-            });
-
-        });
+       
 
         var colorOrange4 = "#F0801A";
         var colorOrange3 = "#FA8F00";
