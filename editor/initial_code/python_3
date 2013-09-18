@@ -7,6 +7,6 @@ def checkio(data):
 if __name__ == '__main__':
     assert checkio("10:37:49") == ".- .... : .-- .--- : -.. -..-", "First Test"
     assert checkio("21:34:56") == "-. ...- : .-- .-.. : -.- .--.", "Second Test"
-    assert checkio("11:10:12") == ".- ...- : ..- .... : ..- ..-.", "Third Test"
+    assert checkio("00:1:02") == ".. .... : ... ...- : ... ..-.", "Third Test"
     assert checkio("23:59:59") == "-. ..-- : -.- -..- : -.- -..-", "Fourth Test"
 

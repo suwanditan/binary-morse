@@ -41,7 +41,7 @@
 </p>
 
 <p>
-    <strong>Input: </strong> A time string ( could be hh:mm:ss or h:m:s format depends on digit length )
+    <strong>Input: </strong> An unspecific time string ( could be hh:mm:ss or h:m:s or hh:m:ss format, with no specific format )
 </p>
 
 <div>
@@ -56,7 +56,7 @@ where each digits represented as sequence of "." and "-"
     </p>
     <pre class="brush: python">assert checkio( "10:37:49" ) == ".- .... : .-- .--- : -.. -..-", "First Test"
 assert checkio( "21:34:56" ) == "-. ...- : .-- .-.. : -.- .--.", "Second Test"
-assert checkio( "00:01:02" ) == ".. .... : ... ...- : ... ..-.", "Third Test"
+assert checkio( "00:1:02" ) == ".. .... : ... ...- : ... ..-.", "Third Test"
 assert checkio( "23:59:59" ) == "-. ..-- : -.- -..- : -.- -..-", "Fourth Test"
   
 </pre>
