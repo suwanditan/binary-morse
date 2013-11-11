@@ -82,12 +82,16 @@
     color: #294270;
     width: 160px;
     padding: 3px;
+    font-weight: bold;
 }
 
 .tryit-content .btn {
     padding: 4px 6px;
     font-size: 14px;
-    font-family: Verdana;
+    font-family: Verdana, Arial, sans-serif;
+    width: 80px;
+    display: block;
+    margin: 10px auto 10px auto;
     font-weight: 500;
     line-height: 1.428571429;
     text-align: center;
@@ -160,4 +164,8 @@ fieldset[disabled] .btn {
 .tryit-content input[type="number"][readonly]{
     cursor: not-allowed;
     background-color: #eeeeee;
+}
+
+.tryit-content svg text {
+    cursor: pointer;
 }
