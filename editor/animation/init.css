@@ -64,10 +64,10 @@
 
 .tryit-content .tool td{
     text-align: center;
-    vertical-align: middle;
+    vertical-align: top;
     color: #294270;
     font-family: Verdana, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     padding: 3px;
 }
 

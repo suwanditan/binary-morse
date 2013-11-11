@@ -118,13 +118,15 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
             $tryit = $(this_e.setHtmlTryIt(ext.get_template('tryit')));
 
-            tCanvas = new MorseClockCanvas();
-            tCanvas.createNumbset($tryit.find(".tryit-canvas")[0], "10:37:49");
+            tCanvas = new MorseClockCanvas({
+                radius: 12, paddingX: 8
+            });
+            tCanvas.createNumbset($tryit.find(".tryit-canvas")[0], "103749");
 
             tCanvas.createFeedback();
 
             rCanvas = new MorseClockCanvas({
-                radius: 12, padding: 5, y0: 3
+                radius: 12, paddingY: 5, paddingX: 8, y0: 3
             });
 
             $tryit.find(".bn-random").click(function (e) {
@@ -170,16 +172,17 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
             var colorWhite = "#FFFFFF";
 
             var x0 = options["x0"] || 10;
-            var y0 = options["y0"] || 10;;
+            var y0 = options["y0"] || 10;
             var radius = options["radius"] || 20;
-            var padding = options["padding"] || 10;
+            var paddingX = options["paddingX"] || 10;
+            var paddingY = options["paddingY"] || 10;
 
-            var sizeX = x0 * 2 + 7 * radius * 2 + padding * 3;
-            var sizeY = y0 * 2 + 5 * radius * 2 + padding * 4;
+            var sizeX = x0 * 2 + 6 * radius * 2 + paddingX * 7;
+            var sizeY = y0 * 2 + 5 * radius * 2 + paddingY * 4;
 
             var attrCircle = {'stroke': colorBlue4, 'stroke-width': 2};
             var attrNumber = {'fill': colorBlue3, 'font-size': radius * 1.5, 'font-family': 'Verdana'};
-            var attrNumber2 = {'fill': colorBlue3, 'font-size': radius * 2, 'font-family': 'Verdana'};
+            var attrNumber2 = {'fill': colorBlue3, 'font-size': radius * 3, 'font-family': 'Verdana'};
 
             var paper;
             var circleSet;
@@ -192,19 +195,23 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
             var obj = this;
 
             this.createNumbset = function (dom, data) {
-                sizeX = x0 * 2 + 12 * radius;
+//                sizeX = x0 * 2 + 12 * radius;
                 sizeY = y0 * 2 + radius * 2;
                 paper = Raphael(dom, sizeX, sizeY, 0, 0);
                 numberSet = paper.set();
+                var x = x0 + radius;
                 var c = 0;
                 for (var i = 0; i < data.length; i++) {
-                    var t = paper.text(x0 + i * radius * 1.5, sizeY / 2, data[i]).attr(attrNumber2);
-                    if (data[i] != ":") {
-                        t.col = c++;
-
-                        numberSet.push(t);
+                    var t = paper.text(x, sizeY / 2, data[i]).attr(attrNumber2);
+                    t.col = c++;
+                    numberSet.push(t);
+                    x += radius * 2 + paddingX;
+                    if (i % 2 === 1) {
+                        x += paddingX;
                     }
                 }
+                paper.text(x0 + 4 * radius + 2 * paddingX, sizeY / 2, ":").attr(attrNumber2);
+                paper.text(x0 + 8 * radius + 5 * paddingX, sizeY / 2, ":").attr(attrNumber2);
             };
 
 
@@ -212,7 +219,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 hideNumb = hideNumb || false;
                 var h = 1;
                 if (hideNumb) {
-                    sizeY = y0 * 2 + 4 * radius * 2 + padding * 4;
+                    sizeY = y0 * 2 + 4 * radius * 2 + paddingY * 4;
                     h = 0;
                 }
                 paper = Raphael(dom, sizeX, sizeY, 0, 0);
@@ -229,7 +236,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                     }
                     for (var j = 0; j < lens[i]; j++) {
                         var c = paper.circle(x,
-                            sizeY - y0 - radius - ((j + h) * (2 * radius + padding)),
+                            sizeY - y0 - radius - ((j + h) * (2 * radius + paddingY)),
                             radius).attr(attrCircle);
                         if (numb % 2) {
                             c.attr('fill', colorGrey3);
@@ -244,9 +251,9 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                         numb = Math.floor(numb / 2);
                         circleSet.push(c);
                     }
-                    x += radius * 2 + padding;
+                    x += radius * 2 + paddingX;
                     if (i % 2 === 1) {
-                        x += padding;
+                        x += paddingX;
                     }
 
                 }
