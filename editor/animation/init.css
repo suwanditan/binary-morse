@@ -64,11 +64,15 @@
 
 .tryit-content .tool td{
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
     color: #294270;
-    font-family: Verdana;
+    font-family: Verdana, Arial, sans-serif;
     font-size: 14px;
     padding: 3px;
+}
+
+.tryit-content .tryit-canvas svg {
+    margin: 0 auto 0 auto;
 }
 
 /*it for firefox*/
@@ -76,18 +80,25 @@
     height: 20%;
 }
 
-.tryit-content .checkio-result{
-    font-size: 16px;
+
+.tryit-content .checkio-result,
+.tryit-content .result-canvas
+{
+    font-size: 18px;
     text-align: center;
     color: #294270;
     width: 160px;
     padding: 3px;
+    font-weight: bold;
 }
 
 .tryit-content .btn {
     padding: 4px 6px;
     font-size: 14px;
-    font-family: Verdana;
+    font-family: Verdana, Arial, sans-serif;
+    width: 80px;
+    display: block;
+    margin: 10px auto 0 auto;
     font-weight: 500;
     line-height: 1.428571429;
     text-align: center;
@@ -160,4 +171,8 @@ fieldset[disabled] .btn {
 .tryit-content input[type="number"][readonly]{
     cursor: not-allowed;
     background-color: #eeeeee;
+}
+
+.tryit-content svg text {
+    cursor: pointer;
 }
