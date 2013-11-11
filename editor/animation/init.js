@@ -86,16 +86,31 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
         var $tryit;
         var tCanvas;
+        var rCanvas;
+
 
         ext.set_console_process_ret(function (this_e, ret) {
-//            var numbRet = Number(ret);
-//            if (!isNaN(numbRet)) {
-//                if (numbRet < 11 && numbRet >= 0) {
-//                    tCanvas.createMedian(numbRet);
-//                }
-//                $tryit.find(".checkio-result").html("Result<br>" + JSON.stringify(numbRet));
-//            }
-//            else {
+
+            var parsed = ret.match(/\'([.-]{2}) ([.-]{4}) : ([.-]{3}) ([.-]{4}) : ([.-]{3}) ([.-]{4})\'/);
+//            console.log(parsed);
+            rCanvas.remove();
+            $tryit.find(".result-canvas").text("");
+            if (!parsed) {
+                $tryit.find(".result-canvas").text("The result has wrong format.")
+            }
+            else {
+                var data = "";
+                for (var i = 1; i < 7; i++) {
+                    var temp = 0;
+                    var morse = parsed[i];
+                    var ml = morse.length;
+                    for (var j = 0; j < morse.length; j++){
+                        temp += morse[j] == "-" ? Math.pow(2, ml - j - 1) : 0;
+                    }
+                    data += temp;
+                }
+                rCanvas.createCanvas($tryit.find(".result-canvas")[0], data, true);
+            }
             $tryit.find(".checkio-result").html("Result<br>" + ret);
         });
 
@@ -103,12 +118,15 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
             $tryit = $(this_e.setHtmlTryIt(ext.get_template('tryit')));
 
-            tCanvas = new MorseClockCanvas(
-                {"radius": 15, "padding": 7}
-            );
-            tCanvas.createCanvas($tryit.find(".tryit-canvas")[0], "103749");
+            tCanvas = new MorseClockCanvas();
+            tCanvas.createNumbset($tryit.find(".tryit-canvas")[0], "10:37:49");
 
             tCanvas.createFeedback();
+
+            rCanvas = new MorseClockCanvas({
+                radius: 12, padding: 5, y0: 3
+            });
+
             $tryit.find(".bn-random").click(function (e) {
                 tCanvas.randomData();
             });
@@ -151,8 +169,8 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
             var colorWhite = "#FFFFFF";
 
-            var x0 = 10;
-            var y0 = 10;
+            var x0 = options["x0"] || 10;
+            var y0 = options["y0"] || 10;;
             var radius = options["radius"] || 20;
             var padding = options["padding"] || 10;
 
@@ -161,6 +179,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
             var attrCircle = {'stroke': colorBlue4, 'stroke-width': 2};
             var attrNumber = {'fill': colorBlue3, 'font-size': radius * 1.5, 'font-family': 'Verdana'};
+            var attrNumber2 = {'fill': colorBlue3, 'font-size': radius * 2, 'font-family': 'Verdana'};
 
             var paper;
             var circleSet;
@@ -172,7 +191,30 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
 
             var obj = this;
 
-            this.createCanvas = function (dom, data) {
+            this.createNumbset = function (dom, data) {
+                sizeX = x0 * 2 + 12 * radius;
+                sizeY = y0 * 2 + radius * 2;
+                paper = Raphael(dom, sizeX, sizeY, 0, 0);
+                numberSet = paper.set();
+                var c = 0;
+                for (var i = 0; i < data.length; i++) {
+                    var t = paper.text(x0 + i * radius * 1.5, sizeY / 2, data[i]).attr(attrNumber2);
+                    if (data[i] != ":") {
+                        t.col = c++;
+
+                        numberSet.push(t);
+                    }
+                }
+            };
+
+
+            this.createCanvas = function (dom, data, hideNumb) {
+                hideNumb = hideNumb || false;
+                var h = 1;
+                if (hideNumb) {
+                    sizeY = y0 * 2 + 4 * radius * 2 + padding * 4;
+                    h = 0;
+                }
                 paper = Raphael(dom, sizeX, sizeY, 0, 0);
                 circleSet = paper.set();
                 numberSet = paper.set();
@@ -180,14 +222,15 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 for (var i = 0; i < lens.length; i++) {
 //                    var tempSet = paper.set();
                     var numb = parseInt(data[i]);
-                    var t = paper.text(x, sizeY - y0 - radius, numb).attr(attrNumber);
-                    t.col = i;
-                    numberSet.push(t);
+                    if (!hideNumb) {
+                        var t = paper.text(x, sizeY - y0 - radius, numb).attr(attrNumber);
+                        t.col = i;
+                        numberSet.push(t);
+                    }
                     for (var j = 0; j < lens[i]; j++) {
                         var c = paper.circle(x,
-                            sizeY - y0 - radius - ((j + 1) * (2 * radius + padding)),
+                            sizeY - y0 - radius - ((j + h) * (2 * radius + padding)),
                             radius).attr(attrCircle);
-
                         if (numb % 2) {
                             c.attr('fill', colorGrey3);
                             c.bit = 1;
@@ -209,24 +252,14 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 }
             };
 
+            this.remove = function() {
+                if (paper) {
+                    paper.remove();
+                    paper = null;
+                }
+            };
+
             this.createFeedback = function () {
-//                circleSet.click(function(){
-//                    if (this.bit) {
-//                        this.bit = 0;
-//                        this.attr('fill', colorWhite);
-//                    }
-//                    else {
-//                        this.bit = 1;
-//                        this.attr('fill', colorGrey3);
-//                    }
-//                    var col = this.col;
-//                    var numb = 0;
-//                    for (var i = 0; i < lens[col]; i++) {
-//                        numb += circleSet[colStart[col] + i].bit * Math.pow(2, i);
-//                    }
-//
-//                    numberSet[col].attr("text", numb);
-//                });
                 numberSet.click(function () {
 
                     var numb = Number(this.attr("text"));
@@ -236,23 +269,23 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                         numb = 0;
                     }
                     if (col == 0 && numb == 2 && numberSet[1].attr("text") > 3) {
-                        circleSet[2].attr('fill', colorGrey3);
-                        circleSet[3].attr('fill', colorGrey3);
-                        circleSet[4].attr('fill', colorWhite);
-                        circleSet[5].attr('fill', colorWhite);
+//                        circleSet[2].attr('fill', colorGrey3);
+//                        circleSet[3].attr('fill', colorGrey3);
+//                        circleSet[4].attr('fill', colorWhite);
+//                        circleSet[5].attr('fill', colorWhite);
                         numberSet[1].attr("text", 3);
                     }
                     this.attr("text", numb);
-                    for (var j = 0; j < lens[col]; j++) {
-                        var c = circleSet[colStart[col] + j];
-                        if (numb % 2) {
-                            c.attr('fill', colorGrey3);
-                        }
-                        else {
-                            c.attr('fill', colorWhite);
-                        }
-                        numb = Math.floor(numb / 2);
-                    }
+//                    for (var j = 0; j < lens[col]; j++) {
+//                        var c = circleSet[colStart[col] + j];
+//                        if (numb % 2) {
+//                            c.attr('fill', colorGrey3);
+//                        }
+//                        else {
+//                            c.attr('fill', colorWhite);
+//                        }
+//                        numb = Math.floor(numb / 2);
+//                    }
                 })
             };
 
@@ -263,16 +296,16 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210'],
                 for (var i = 0; i < lens.length; i++) {
                     var numb = parseInt(data[i]);
                     numberSet[i].attr("text", numb);
-                    for (var j = 0; j < lens[i]; j++) {
-                        var c = circleSet[colStart[i] + j];
-                        if (numb % 2) {
-                            c.attr('fill', colorGrey3);
-                        }
-                        else {
-                            c.attr('fill', colorWhite);
-                        }
-                        numb = Math.floor(numb / 2);
-                    }
+//                    for (var j = 0; j < lens[i]; j++) {
+//                        var c = circleSet[colStart[i] + j];
+//                        if (numb % 2) {
+//                            c.attr('fill', colorGrey3);
+//                        }
+//                        else {
+//                            c.attr('fill', colorWhite);
+//                        }
+//                        numb = Math.floor(numb / 2);
+//                    }
                 }
             };
 
