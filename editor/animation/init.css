@@ -90,6 +90,7 @@
     width: 160px;
     padding: 3px;
     font-weight: bold;
+    white-space: pre;
 }
 
 .tryit-content .btn {
